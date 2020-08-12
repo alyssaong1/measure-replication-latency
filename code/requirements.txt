@@ -1,0 +1,4 @@
+locust==1.0.2
+numpy==1.18.5
+pandas==1.0.4
+tabulate==0.8.7

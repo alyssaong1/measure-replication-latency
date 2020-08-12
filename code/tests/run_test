@@ -1,0 +1,2 @@
+env RUN_ID=$runid FILE_PATH=$filepath locust -f useast.py --headless -u 6 -r 6 --run-time 600s Read
+env RUN_ID=$runid FILE_PATH=$filepath locust -f uswest.py --headless -u 6 -r 6 --run-time 600s Add
