@@ -11,7 +11,7 @@ class Api():
     def __init__(self, region):
         self.region = region
 
-    def get(self, client, userId, name="Get balance"):
+    def get(self, client, userId, name="Get score"):
         endpoint = endpoints[self.region]['get']
 
         with client.get(

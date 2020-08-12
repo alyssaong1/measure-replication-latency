@@ -33,19 +33,19 @@ class Read(HttpUser):
         self.initPoints = user[1]
         self.pointsToAdd = user[2]
 
-        success, balance, result = api.get(self.client, self.userId,
-                                           name="Get initial user balance")
-        self.currentBalance = balance
+        success, result = api.get(self.client, self.userId,
+                                           name="Get initial user score")
+        self.currentscore = score
 
     @task(1)
-    def get_balance(self):
-        success, balance, result = api.get(
+    def get_score(self):
+        success, score, result = api.get(
             self.client, self.userId)
 
-        # Only log if the balance has changed
-        if success and (self.currentBalance != balance):
-            logger.logBalance(runId, 'GET', region, result)
-            self.currentBalance = balance
+        # Only log if the score has changed
+        if success and (self.currentscore != score):
+            logger.logscore(runId, 'GET', region, result)
+            self.currentscore = score
 
     host = ""  # mandatory parameter, leave as blank
 
@@ -63,11 +63,11 @@ class Add(HttpUser):
 
     @task(1)
     def operations(self):
-        success, result, requestKey = api.add(self.client, self.userId, self.pointsToAdd)
+        success, result = api.add(self.client, self.userId, self.pointsToAdd)
         if success:
             result['userId'] = self.userId
             result['pointsToAdd'] = self.pointsToAdd
-            logger.logBalance(runId, 'ADD', region, result)
+            logger.logscore(runId, 'ADD', region, result)
 
     host = ""  # mandatory parameter, leave as blank
 
@@ -85,11 +85,11 @@ class Reduce(HttpUser):
 
     @task(1)
     def operations(self):
-        success, result, requestKey = api.reduce(self.client, self.userId, self.pointsToReduce)
+        success, result = api.reduce(self.client, self.userId, self.pointsToReduce)
         if success:
             result['userId'] = self.userId
             result['pointsToReduce'] = self.pointsToReduce
-            logger.logBalance(runId, 'REDUCE', region, result)
+            logger.logscore(runId, 'REDUCE', region, result)
 
     host = ""  # mandatory parameter, leave as blank
 

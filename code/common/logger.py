@@ -17,6 +17,6 @@ class Logger():
             file.write(line)
             file.write("\n")
 
-    def logBalance(self, runId, operation, region, result):
+    def logScore(self, runId, operation, region, result):
         formatted_result = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')},{runId},{result['updated_at']},{result['timestamp']},{result['userId']}"
         self.logWithNewLine(formatted_result)
